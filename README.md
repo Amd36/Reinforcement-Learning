@@ -47,7 +47,8 @@ Since the observations have infinities, the best we can do is approximate the q-
 $$
 Q(s_t, a_t; \theta) \leftarrow Q(s_t, a_t; \theta) + \alpha [r_t + \gamma \max_{a} Q(s_{t+1}, a; \theta^-) - Q(s_t, a_t; \theta)]
 $$  
-   Where:  
+
+Where:  
    - $\theta$ represents the parameters of the main network  
    - $\theta^-$ represents the parameters of the target network
 
@@ -98,7 +99,7 @@ The overall algorithm can be outlined as the following:
      c) Compute total loss:
         $L_t(\theta) = -L_t^{\text{CLIP}}(\theta) + c_{\text{vf}} L_t^{\text{VF}}(\theta) - c_{\text{entropy}} S[\pi_\theta](s_t)$
      
-     d) Compute gradients: $\nabla_\theta L_t(\theta)$
+     d) Compute gradients: $ \nabla_\theta L_t(\theta) $
      
      e) Apply gradient clipping if $\| \nabla_\theta L_t(\theta) \| > \text{max\_grad\_norm}$
      
