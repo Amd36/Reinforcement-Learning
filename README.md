@@ -62,7 +62,9 @@ as we can observe a stable pole on a moving cart.... Impressive, right? :)
 ## Proximal Policy Optimization
 Now we have an actor, who acts and a critic(like me), who only criticises about the output. The main loss function we are trying to optimize looks like this:
 
-$L(\theta) = \hat{\mathbb{E}}[L^{CLIP}(\theta) - c_1 L^{VF}(\theta) + c_2 S[\pi_\theta](s)]$
+$$
+L(\theta) = \hat{\mathbb{E}}[L^{CLIP}(\theta) - c_1 L^{VF}(\theta) + c_2 S[\pi_\theta](s)]
+$$
 
 Where:
 
