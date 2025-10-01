@@ -146,3 +146,18 @@ Although due to limited computation power, I did not complete the total training
     <img src="videos/ppo_pong_eval-step-0-to-step-3000.gif" alt="Watch the demo" width="300"/>
   </a>
 </p>
+
+I have listed the training parameters and their evolution too. Look at these if you like:
+
+1. **Loss vs Training Steps:**
+![loss/train_steps](images/loss.png)
+
+2. **Entropy Loss vs Training Steps:**
+![entropy_loss/training_steps](images/entropy_loss.png)
+
+3. **Explained Variance vs Training Steps:**
+![variance/training_steps](images/explained_variance.png)
+
+Please refer to the individual notebooks for codes and further reference! 
+
+***Dankeschon!!*** 
