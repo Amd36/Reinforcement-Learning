@@ -142,7 +142,7 @@ The overall algorithm can be outlined as follows:
 Although due to limited computation power, I did not complete the total training, the results up to the last point are very promising, the trained **"Ping"** is overkill, man:
 
 <p align="center">
-  <a href="videos/demo.mp4">
+  <a href="videos/ppo_pong_eval-step-0-to-step-3000.mp4">
     <img src="videos/ppo_pong_eval-step-0-to-step-3000.gif" alt="Watch the demo" width="300"/>
   </a>
 </p>
