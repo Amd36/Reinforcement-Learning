@@ -95,7 +95,7 @@ The overall algorithm can be outlined as the following:
      a) Compute probability ratio:
 
         $$
-        r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{\text{old}}}(a_t|s_t)}
+        r_t(\theta)=\frac{\pi_\theta(a_t\mid s_t)}{\pi_{\theta_{\text{old}}}(a_t\mid s_t)}
         $$
 
      b) Compute losses:
@@ -116,15 +116,13 @@ The overall algorithm can be outlined as the following:
         - Entropy bonus:
 
           $$
-          S[\pi_\theta](s_t) = -\sum_a \pi_\theta(a|s_t)\,\log \pi_\theta(a|s_t)
+          S[\pi_\theta](s_t) = -\sum_a \pi_\theta(a\mid s_t)\,\log \pi_\theta(a\mid s_t)
           $$
 
      c) Total loss:
 
         $$
-        L_t(\theta) = -L_t^{\mathrm{CLIP}}(\theta)
-        + c_{\mathrm{vf}}\,L_t^{\mathrm{VF}}(\theta)
-        - c_{\mathrm{entropy}}\,S[\pi_\theta](s_t)
+        L_t(\theta) = -L_t^{\mathrm{CLIP}}(\theta) + c_{\mathrm{vf}}\,L_t^{\mathrm{VF}}(\theta) - c_{\mathrm{entropy}}\,S[\pi_\theta](s_t)
         $$
 
      d) Gradients: \( \nabla_\theta L_t(\theta) \)
@@ -132,7 +130,6 @@ The overall algorithm can be outlined as the following:
      e) Gradient clipping if \( \lVert \nabla_\theta L_t(\theta) \rVert > \text{max\_grad\_norm} \)
 
      f) Update: \( \theta \leftarrow \theta - \alpha \nabla_\theta L_t(\theta) \)
-
 
 **Key Components:**
 - **Clipping:** Limits policy updates to stabilize learning.
