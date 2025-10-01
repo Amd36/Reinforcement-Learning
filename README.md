@@ -94,14 +94,14 @@ The overall algorithm can be outlined as the following:
      b) Compute losses:
         - Clipped objective: $L_t^{\text{CLIP}}(\theta) = \min( r_t(\theta) \hat{A}_t, \text{clip}( r_t(\theta), 1 - \epsilon, 1 + \epsilon ) \hat{A}_t )$
         - Value function: $L_t^{\text{VF}}(\theta) = ( V_\theta(s_t) - V_{\text{target}}(s_t) )^2$
-        - Entropy bonus: $S[\pi_\theta](s_t) = -\sum_a \pi_\theta(a|s_t) \log \pi_\theta(a|s_t)$
+        - Entropy bonus: $$ S[\pi_\theta](s_t) = -\sum_a \pi_\theta(a|s_t) \log \pi_\theta(a|s_t) $$
      
      c) Compute total loss:
-        $L_t(\theta) = -L_t^{\text{CLIP}}(\theta) + c_{\text{vf}} L_t^{\text{VF}}(\theta) - c_{\text{entropy}} S[\pi_\theta](s_t)$
+        $$ L_t(\theta) = -L_t^{\text{CLIP}}(\theta) + c_{\text{vf}} L_t^{\text{VF}}(\theta) - c_{\text{entropy}} S[\pi_\theta](s_t) $$
      
-     d) Compute gradients: $ \nabla_\theta L_t(\theta) $
+     d) Compute gradients: $$ \nabla_\theta L_t(\theta) $$
      
-     e) Apply gradient clipping if $\| \nabla_\theta L_t(\theta) \| > \text{max\_grad\_norm}$
+     e) Apply gradient clipping if $$ \| \nabla_\theta L_t(\theta) \| > \text{max\_grad\_norm} $$
      
      f) Update parameters: $\theta \leftarrow \theta - \alpha \nabla_\theta L_t(\theta)$, where $\alpha$ is the learning rate
 
