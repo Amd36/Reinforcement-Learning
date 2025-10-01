@@ -18,7 +18,7 @@ where:
 
 This iterative update helps the agent converge towards the optimal policy over time.
 
-Here I have tried to solve our very old gridworld, treating it as an MDP. The gridworld looks like this:
+Here, I have tried to solve our very old gridworld, treating it as an MDP. The gridworld looks like this:
 ![GridWorld](images/gridworld.png)
 
 And after the greedy training, the equation converges to the following policy:
@@ -26,7 +26,7 @@ And after the greedy training, the equation converges to the following policy:
 
 
 ## Deep Q-Network Algorithm
-Now for a more challenging approach, I have used a series of Dense layers to estimate the q-values for the very famous cartpole problem, 
+Now, for a more challenging approach, I have used a series of Dense layers to estimate the q-values for the very famous cartpole problem, 
 where we have two actions for the cart:
 1. Moving Left (0)
 2. Moving Right (1)
@@ -42,7 +42,7 @@ And termination conditions:
 2. **Termination**: Cart Position > ±2.4
 3. **Truncation**: Episode length > 500
 
-Since the observations have infinities, the best we can do is approximate the q-values. Hence we are trying the same old Bellman equation but a bit modified like :
+Since the observations have infinities, the best we can do is approximate the q-values. Hence, we are trying the same old Bellman equation, but a bit modified like :
 
 $$
 Q(s_t, a_t; \theta) \leftarrow Q(s_t, a_t; \theta) + \alpha [r_t + \gamma \max_{a} Q(s_{t+1}, a; \theta^-) - Q(s_t, a_t; \theta)]
@@ -52,7 +52,7 @@ Where:
    - $\theta$ represents the parameters of the main network  
    - $\theta^-$ represents the parameters of the target network
 
-Here we have `self.model` and `self.target_model` as the $\theta$ and $\theta^-$ .
+Here we have `self.model` and `self.target_model` as the $\theta$ and $\theta^-$.
 
 The results are quite satisfactory:
 ![Trained_CartPole](videos/cartpole_run.gif)
@@ -60,7 +60,7 @@ The results are quite satisfactory:
 as we can observe a stable pole on a moving cart.... Impressive, right? :) 
 
 ## Proximal Policy Optimization
-Now we have an actor, who acts and a critic(like me), who only criticises about the output. The main loss function we are trying to optimize looks like this:
+Now we have an actor, who acts, and a critic(like me), who only criticises about the output. The main loss function we are trying to optimize looks like this:
 
 $$
    L(\theta) = \hat{\text{E}}[L^{CLIP}(\theta) - c_1 L^{VF}(\theta) + c_2 S[\pi_\theta](s)]
@@ -72,15 +72,15 @@ Where:
    $L^{CLIP}(\theta) = \min(r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t)$
 
 2. $L^{VF}(\theta)$ is the value function loss:  
-   This is typically a mean squared error between the value function predictions and the actual returns. It can be written as:
+   This is typically a mean-squared error between the value function predictions and the actual returns. It can be written as:
    $L^{VF}(\theta) = (V_\theta(s_t) - V^{target}_t)^2$
 
 3. $S[\pi_\theta](s)$ is the entropy of the policy:  
    This encourages exploration by favoring policies that maintain some randomness.
 
-4. $c_1$ and $c_2$ are coefficients that balance the importance of the value function loss and entropy bonus respectively.
+4. $c_1$ and $c_2$ are coefficients that balance the importance of the value function loss and entropy bonus, respectively.
 
-The overall algorithm can be outlined as the following:
+The overall algorithm can be outlined as follows:
 
 1. **Initialize** policy parameters $\theta_0$.
 
@@ -139,7 +139,7 @@ The overall algorithm can be outlined as the following:
 - **Entropy Bonus:** Encourages exploration by rewarding policy randomness.
 - **Gradient Clipping:** Prevents extreme parameter updates.
 
-Although due to limited computation power, I did not complete the total training, the results upto last point is very promising, the trained **"Ping"** is overkill man:
+Although due to limited computation power, I did not complete the total training, the results up to the last point are very promising, the trained **"Ping"** is overkill, man:
 
 <p align="center">
   <a href="videos/demo.mp4">
