@@ -87,23 +87,52 @@ The overall algorithm can be outlined as the following:
    - Compute rewards, value estimates $V_{\theta_{\text{old}}}(s_t)$, and advantages $\hat{A}_t$ using GAE.
 
 3. **Policy Update Loop** (Repeat for `n_epochs`):
+
    - Shuffle data and create mini-batches of size `batch_size`.
+
    - For each mini-batch:
-     a) Compute probability ratio: $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{\text{old}}}(a_t|s_t)}$
-     
+
+     a) Compute probability ratio:
+
+        $$
+        r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{\text{old}}}(a_t|s_t)}
+        $$
+
      b) Compute losses:
-        - Clipped objective: $L_t^{\text{CLIP}}(\theta) = \min( r_t(\theta) \hat{A}_t, \text{clip}( r_t(\theta), 1 - \epsilon, 1 + \epsilon ) \hat{A}_t )$
-        - Value function: $L_t^{\text{VF}}(\theta) = ( V_\theta(s_t) - V_{\text{target}}(s_t) )^2$
-        - Entropy bonus: $$ S[\pi_\theta](s_t) = -\sum_a \pi_\theta(a|s_t) \log \pi_\theta(a|s_t) $$
-     
-     c) Compute total loss:
-        $$ L_t(\theta) = -L_t^{\text{CLIP}}(\theta) + c_{\text{vf}} L_t^{\text{VF}}(\theta) - c_{\text{entropy}} S[\pi_\theta](s_t) $$
-     
-     d) Compute gradients: $$ \nabla_\theta L_t(\theta) $$
-     
-     e) Apply gradient clipping if $$ \| \nabla_\theta L_t(\theta) \| > \text{max\_grad\_norm} $$
-     
-     f) Update parameters: $\theta \leftarrow \theta - \alpha \nabla_\theta L_t(\theta)$, where $\alpha$ is the learning rate
+
+        - Clipped objective:
+
+          $$
+          L_t^{\mathrm{CLIP}}(\theta)
+          = \min\!\big(r_t(\theta)\,\hat A_t,\ \mathrm{clip}(r_t(\theta),1-\epsilon,1+\epsilon)\,\hat A_t\big)
+          $$
+
+        - Value function:
+
+          $$
+          L_t^{\mathrm{VF}}(\theta)=\big(V_\theta(s_t)-V_{\mathrm{target}}(s_t)\big)^2
+          $$
+
+        - Entropy bonus:
+
+          $$
+          S[\pi_\theta](s_t) = -\sum_a \pi_\theta(a|s_t)\,\log \pi_\theta(a|s_t)
+          $$
+
+     c) Total loss:
+
+        $$
+        L_t(\theta) = -L_t^{\mathrm{CLIP}}(\theta)
+        + c_{\mathrm{vf}}\,L_t^{\mathrm{VF}}(\theta)
+        - c_{\mathrm{entropy}}\,S[\pi_\theta](s_t)
+        $$
+
+     d) Gradients: \( \nabla_\theta L_t(\theta) \)
+
+     e) Gradient clipping if \( \lVert \nabla_\theta L_t(\theta) \rVert > \text{max\_grad\_norm} \)
+
+     f) Update: \( \theta \leftarrow \theta - \alpha \nabla_\theta L_t(\theta) \)
+
 
 **Key Components:**
 - **Clipping:** Limits policy updates to stabilize learning.
