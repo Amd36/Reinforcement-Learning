@@ -63,7 +63,7 @@ as we can observe a stable pole on a moving cart.... Impressive, right? :)
 Now we have an actor, who acts and a critic(like me), who only criticises about the output. The main loss function we are trying to optimize looks like this:
 
 $$
-L(\theta) = \hat{\mathbb{E}}[L^{CLIP}(\theta) - c_1 L^{VF}(\theta) + c_2 S[\pi_\theta](s)]
+   L(\theta) = \hat{\text{E}}[L^{CLIP}(\theta) - c_1 L^{VF}(\theta) + c_2 S[\pi_\theta](s)]
 $$
 
 Where:
@@ -96,42 +96,42 @@ The overall algorithm can be outlined as the following:
 
      a) Compute probability ratio:
 
-        $$
+      $$
         r_t(\theta)=\frac{\pi_\theta(a_t\mid s_t)}{\pi_{\theta_{\text{old}}}(a_t\mid s_t)}
-        $$
+      $$
 
      b) Compute losses:
 
         - Clipped objective:
 
-          $$
+      $$
           L_t^{\mathrm{CLIP}}(\theta)
           = \min\!\big(r_t(\theta)\,\hat A_t,\ \mathrm{clip}(r_t(\theta),1-\epsilon,1+\epsilon)\,\hat A_t\big)
-          $$
+      $$
 
         - Value function:
 
-          $$
+      $$
           L_t^{\mathrm{VF}}(\theta)=\big(V_\theta(s_t)-V_{\mathrm{target}}(s_t)\big)^2
-          $$
+      $$
 
         - Entropy bonus:
 
-          $$
+      $$
           S[\pi_\theta](s_t) = -\sum_a \pi_\theta(a\mid s_t)\,\log \pi_\theta(a\mid s_t)
-          $$
+      $$
 
      c) Total loss:
 
-        $$
+      $$
         L_t(\theta) = -L_t^{\mathrm{CLIP}}(\theta) + c_{\mathrm{vf}}\,L_t^{\mathrm{VF}}(\theta) - c_{\mathrm{entropy}}\,S[\pi_\theta](s_t)
-        $$
+      $$
 
-     d) Gradients: \( \nabla_\theta L_t(\theta) \)
+     d) Gradients: $ \nabla_\theta L_t(\theta) $
 
-     e) Gradient clipping if \( \lVert \nabla_\theta L_t(\theta) \rVert > \text{max\_grad\_norm} \)
+     e) Gradient clipping if $ \lVert \nabla_\theta L_t(\theta) \rVert > \text{max\_grad\_norm} $
 
-     f) Update: \( \theta \leftarrow \theta - \alpha \nabla_\theta L_t(\theta) \)
+     f) Update: $ \theta \leftarrow \theta - \alpha \nabla_\theta L_t(\theta) $
 
 **Key Components:**
 - **Clipping:** Limits policy updates to stabilize learning.
